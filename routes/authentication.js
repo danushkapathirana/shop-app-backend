@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const CryptoJS = require("crypto-js")
+const jwt = require("jsonwebtoken")
 
 const User = require("../models/User")
 
@@ -35,10 +36,15 @@ router.get("/login", async (req, res) => {
             return res.status(401).json("Wrong credentials!")
         }
 
+        const accessToken = jwt.sign({
+            id: user._id,
+            isAdmin: user.isAdmin
+        }, process.env.JWT_ENC_KEY, {expiresIn: "3d"})
+
         // user info saved on _doc inside mongodb, so if you send the following line it will send whole document
         // const { password, ...otherInfo} = user
         const { password, ...otherInfo} = user._doc
-        res.status(200).json(otherInfo)
+        res.status(200).json({...otherInfo, accessToken})
     }
     catch (error) {
         res.status(500).json(error)
