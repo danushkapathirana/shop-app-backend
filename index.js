@@ -7,7 +7,7 @@ const authenticationRoute = require("./routes/authentication")
 const userRoute = require("./routes/user")
 const productRoute = require("./routes/product")
 const orderRoute = require("./routes/order")
-
+const stripeRoute = require("./routes/stripe")
 dotenv.config()
 
 const app =  express()
@@ -30,8 +30,10 @@ app.use("/api/auth", authenticationRoute)
 app.use("/api/users", userRoute)
 app.use("/api/products", productRoute)
 app.use("/api/orders", orderRoute)
+app.use("/api/checkout", stripeRoute)
 
 // libraries
 
 // npm install express mongoose dotenv nodemon
 // npm install crypto-js
+// npm install strip
