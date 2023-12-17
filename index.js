@@ -5,6 +5,7 @@ const dotenv = require("dotenv")
 // route imports
 const authenticationRoute = require("./routes/authentication")
 const userRoute = require("./routes/user")
+const productRoute = require("./routes/product")
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ app.use(express.json())
 
 app.use("/api/auth", authenticationRoute)
 app.use("/api/users", userRoute)
+app.use("/api/products", productRoute)
 
 // libraries
 
